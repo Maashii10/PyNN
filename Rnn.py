@@ -1,5 +1,6 @@
 import numpy as np
 import Function
+import pickle
 
 
 class Layer:
@@ -39,6 +40,7 @@ class Network:
         self.output_size = output_size
         self.hidden_layer = hidden_layer
         self.hidden_layer_size = hidden_layer_size
+        self.score = 0
         self.layers = [Layer(hidden_layer_size[i]) for i in range(
             self.hidden_layer)]  # hidden layers
         self.layers.insert(0, Layer(input_size))  # input layer
@@ -55,9 +57,11 @@ class Network:
         self.layers[0].output = input
         for i in range(1, self.hidden_layer+2):
             self.layers[i].propagation()
+        self.output = self.layers[self.hidden_layer+1].output
 
+    def save_model(self, file="model.pickle"):
+        pickle.dump(self, open(file, "wb"))
 
-if __name__ == '__main__':
-    nn = Network(9, 9, 1)
-    nn.calculate([1, 1, 1, 1, 1, 1, 1, 1, 1])
-    nn.describe()
+    @staticmethod
+    def open_model(file="model.pickle"):
+        return pickle.load(open(file, "rb"))
