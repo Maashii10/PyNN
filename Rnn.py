@@ -52,6 +52,7 @@ class Network:
     def describe(self):
         for i in range(self.hidden_layer+2):
             self.layers[i].describe()
+            print("Score : ", self.score, "\n")
 
     def calculate(self, input):
         self.layers[0].output = input
@@ -65,3 +66,6 @@ class Network:
     @staticmethod
     def open_model(file="model.pickle"):
         return pickle.load(open(file, "rb"))
+
+    def setLayer(self, id, weight):
+        self.layers[id].weight = weight
