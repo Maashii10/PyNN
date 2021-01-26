@@ -33,6 +33,7 @@ class Population:
             print("Population ", i, " :\n")
             i.describe()
 
+#test
     # mother is best, father is second best of previous population
     def crossOver(self, number):
         self.population.sort(key=operator.attrgetter('score'), reverse=True)
